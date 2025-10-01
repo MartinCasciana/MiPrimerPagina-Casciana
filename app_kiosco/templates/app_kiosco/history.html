@@ -1,0 +1,37 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}Historial de movimientos{% endblock %}
+{% block content %}
+
+<h2>Historial de Compras y Ventas</h2>
+
+<form method="get" style="margin: 0 0 1rem">
+  <input type="text" name="q" value="{{ q }}" placeholder="Filtrar por producto">
+  <button type="submit">Filtrar</button>
+</form>
+
+<table border="1" cellpadding="6">
+  <thead>
+    <tr>
+      <th>Fecha y hora</th>
+      <th>Tipo</th>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Importe unitario</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in entries %}
+      <tr>
+        <td>{{ e.date|date:"d/m/Y H:i" }}</td>
+        <td>{{ e.type }}</td>
+        <td>{{ e.product }}</td>
+        <td>{{ e.qty }}</td>
+        <td>{{ e.unit_amount }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">Sin movimientos</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

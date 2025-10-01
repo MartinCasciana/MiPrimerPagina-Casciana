@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}Kiosco{% endblock %}</title>
+</head>
+<body>
+  <nav>
+    <a href="/">Inicio</a> |
+    <a href="/buscar/">Buscar</a> |
+    <a href="/productos/">Productos</a> |
+    <a href="/proveedores/nuevo/">Alta Proveedor</a> |
+    <a href="/productos/nuevo/">Alta Producto</a> |
+    <a href="/compras/nueva/">Registrar Compra</a> |
+    <a href="/ventas/nueva/">Registrar Venta</a> |
+    <a href="/historial/">Historial</a> |
+
+  </nav>
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>

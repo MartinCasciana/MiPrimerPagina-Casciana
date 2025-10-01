@@ -1,0 +1,11 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}Borrar {{ type }}{% endblock %}
+{% block content %}
+  <h2>¿Borrar {{ type }} “{{ object }}”?</h2>
+  <p>Se eliminarán también sus compras/ventas relacionadas.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, borrar</button>
+    <a href="{% url 'product_list' %}">Cancelar</a>
+  </form>
+{% endblock %}

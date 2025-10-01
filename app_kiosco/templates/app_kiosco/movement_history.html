@@ -1,0 +1,24 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}Historial de movimientos{% endblock %}
+{% block content %}
+<h2>Historial de movimientos</h2>
+<form method="get">
+  <input type="text" name="product" value="{{ request.GET.product }}" placeholder="Filtrar por producto">
+  <button type="submit">Filtrar</button>
+</form>
+
+<table border="1">
+  <tr><th>Fecha</th><th>Tipo</th><th>Producto</th><th>Cantidad</th><th>Importe unitario</th></tr>
+  {% for m in movements %}
+  <tr>
+    <td>{{ m.date }}</td>
+    <td>{{ m.get_type_display }}</td>
+    <td>{{ m.product }}</td>
+    <td>{{ m.qty }}</td>
+    <td>{{ m.unit_amount }}</td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="5">Sin movimientos</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
