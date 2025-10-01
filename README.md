@@ -26,8 +26,8 @@ Incluye:
 Clonar el proyecto y entrar en la carpeta:
 
 ```bash
-git clone https://github.com/tu-usuario/django-kiosco.git
-cd django-kiosco
+git clone https://github.com/MartinCasciana/MiPrimerPagina-Casciana.git
+cd MiPrimerPagina-Casciana
 ```
 
 Crear y activar un entorno virtual:
