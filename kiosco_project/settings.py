@@ -3,6 +3,13 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
 SECRET_KEY = 'cambiame-por-uno-seguro'
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -15,6 +22,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_kiosco',
+    'pages',
+    'accounts',
+    'inbox',
+    'ckeditor',
+
 ]
 
 MIDDLEWARE = [
