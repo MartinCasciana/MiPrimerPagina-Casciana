@@ -1,0 +1,17 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+<h2>{{ page.title }}</h2>
+<p><small>{{ page.created|date:"d/m/Y H:i" }}</small></p>
+{% if page.image %}
+  <p><img src="{{ page.image.url }}" alt="" style="max-width: 300px;"></p>
+{% endif %}
+<div>{{ page.body|safe }}</div>
+
+{% if user.is_authenticated %}
+  <p style="margin-top: 1rem;">
+    <a href="{% url 'page_update' page.slug %}">Editar</a> |
+    <a href="{% url 'page_delete' page.slug %}">Borrar</a>
+  </p>
+{% endif %}
+{% endblock %}

@@ -1,9 +1,6 @@
 from django.urls import path
-from django.http import HttpResponse
-
-def about_view(request):
-    return HttpResponse("Acerca de mí (placeholder)")
+from .views import AboutView
 
 urlpatterns = [
-    path('', about_view, name='about'),
+    path('', AboutView.as_view(), name='about'),
 ]

@@ -1,0 +1,18 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}Pages{% endblock %}
+{% block content %}
+  <h2>Páginas</h2>
+  {% if pages %}
+    <ul>
+      {% for p in pages %}
+        <li>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.excerpt }}</p>
+          <a href="{% url 'page_detail' p.slug %}">Leer más</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p><strong>No hay páginas aún.</strong></p>
+  {% endif %}
+{% endblock %}
