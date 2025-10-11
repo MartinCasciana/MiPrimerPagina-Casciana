@@ -2,14 +2,17 @@
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
 <h2>{{ page.title }}</h2>
-<p><small>{{ page.created|date:"d/m/Y H:i" }}</small></p>
+{% if page.subtitle %}<p><em>{{ page.subtitle }}</em></p>{% endif %}
+<p><small>Publicado el {{ page.date_created|date:"d/m/Y H:i" }} por {{ page.author }}</small></p>
+
 {% if page.image %}
-  <p><img src="{{ page.image.url }}" alt="" style="max-width: 300px;"></p>
+  <p><img src="{{ page.image.url }}" alt="" style="max-width: 320px;"></p>
 {% endif %}
-<div>{{ page.body|safe }}</div>
+
+<div>{{ page.content|safe }}</div>
 
 {% if user.is_authenticated %}
-  <p style="margin-top: 1rem;">
+  <p style="margin-top:1rem;">
     <a href="{% url 'page_update' page.slug %}">Editar</a> |
     <a href="{% url 'page_delete' page.slug %}">Borrar</a>
   </p>

@@ -31,6 +31,8 @@ class PageCreate(LoginRequiredMixin, CreateView):
     template_name = "pages/page_form.html"
     success_url = reverse_lazy("page_list")
 
+    
+
 class PageUpdate(LoginRequiredMixin, UpdateView):
     model = Page
     fields = ["title", "slug", "excerpt", "body", "image"]
