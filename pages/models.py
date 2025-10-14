@@ -1,19 +1,21 @@
 from django.db import models
-from django.utils import timezone
+from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.utils.text import slugify
 
 class Page(models.Model):
-    title = models.CharField("Título", max_length=200)        # CharField 1
-    slug = models.SlugField(unique=True)
-    excerpt = models.CharField("Resumen", max_length=250, blank=True)  # CharField 2
-    body = RichTextField("Contenido")                          # texto enriquecido
-    image = models.ImageField("Imagen", upload_to="pages/", blank=True, null=True)  # imagen
-    created = models.DateTimeField("Creado", default=timezone.now)                  # fecha
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=200, blank=True)
+    content = RichTextField()
+    image = models.ImageField(upload_to='pages/', blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pages')
+    slug = models.SlugField(unique=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        ordering = ['-created']
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
-
-# Create your models here.

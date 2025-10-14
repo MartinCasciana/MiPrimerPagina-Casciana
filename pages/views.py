@@ -30,6 +30,9 @@ class PageCreate(LoginRequiredMixin, CreateView):
     fields = ["title", "slug", "excerpt", "body", "image"]
     template_name = "pages/page_form.html"
     success_url = reverse_lazy("page_list")
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
     
 
