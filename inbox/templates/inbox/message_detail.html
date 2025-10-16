@@ -1,0 +1,18 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}Mensaje{% endblock %}
+{% block content %}
+<h2>{{ msg.subject }}</h2>
+<p><b>De:</b> {{ msg.sender.username }} — <b>Para:</b> {{ msg.recipient.username }}</p>
+<p><small>{{ msg.created|date:"d/m/Y H:i" }}</small></p>
+<hr>
+<p>{{ msg.body|linebreaks }}</p>
+<hr>
+<form method="post" action="{% url 'inbox_delete' msg.pk %}">
+  {% csrf_token %}
+  <button type="submit">Eliminar</button>
+  <a href="{% url 'inbox_home' %}">Volver</a>
+</form>
+<p style="margin-top:1rem;">
+  Responder: <a href="{% url 'inbox_new_to' msg.sender.username %}">{{ msg.sender.username }}</a>
+</p>
+{% endblock %}

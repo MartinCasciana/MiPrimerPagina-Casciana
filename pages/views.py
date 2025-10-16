@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.db.models import Q
@@ -6,6 +6,11 @@ from .models import Page
 
 class AboutView(TemplateView):
     template_name = "pages/about.html"
+
+class OwnerRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
 
 class PageList(ListView):
     model = Page
@@ -36,13 +41,13 @@ class PageCreate(LoginRequiredMixin, CreateView):
 
     
 
-class PageUpdate(LoginRequiredMixin, UpdateView):
+class PageUpdate(LoginRequiredMixin, OwnerRequiredMixin, UpdateView):
     model = Page
-    fields = ["title", "slug", "excerpt", "body", "image"]
+    fields = ["title", "subtitle", "content", "image"]
     template_name = "pages/page_form.html"
     success_url = reverse_lazy("page_list")
 
-class PageDelete(LoginRequiredMixin, DeleteView):
+class PageDelete(LoginRequiredMixin, OwnerRequiredMixin, DeleteView):
     model = Page
     template_name = "pages/page_confirm_delete.html"
     success_url = reverse_lazy("page_list")

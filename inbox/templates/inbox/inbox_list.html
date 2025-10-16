@@ -1,0 +1,19 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}Inbox{% endblock %}
+{% block content %}
+<h2>Inbox</h2>
+<p><a href="{% url 'inbox_new' %}">Nuevo mensaje</a> | <a href="{% url 'inbox_sent' %}">Enviados</a></p>
+{% if messages_list %}
+  <ul>
+    {% for m in messages_list %}
+      <li>
+        {% if not m.read %}<strong>[Nuevo]</strong>{% endif %}
+        <a href="{% url 'inbox_detail' m.pk %}">{{ m.subject }}</a>
+        — de {{ m.sender.username }} — {{ m.created|date:"d/m/Y H:i" }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No tenés mensajes.</p>
+{% endif %}
+{% endblock %}

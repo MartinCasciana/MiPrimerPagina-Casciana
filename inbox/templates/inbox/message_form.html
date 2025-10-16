@@ -1,0 +1,12 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}Nuevo mensaje{% endblock %}
+{% block content %}
+<h2>Nuevo mensaje</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Enviar</button>
+  <a href="{% url 'inbox_home' %}">Cancelar</a>
+</form>
+{% endblock %}
+
