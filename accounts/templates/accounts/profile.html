@@ -1,0 +1,13 @@
+{% extends 'app_kiosco/base.html' %}
+{% block title %}Perfil{% endblock %}
+{% block content %}
+<h2>Perfil de {{ profile.user.username }}</h2>
+{% if profile.avatar %}<img src="{{ profile.avatar.url }}" width="120">{% endif %}
+<p><b>Bio:</b> {{ profile.bio }}</p>
+<p><b>Nacimiento:</b> {{ profile.birth_date }}</p>
+<p><b>Link:</b> <a href="{{ profile.link }}">{{ profile.link }}</a></p>
+<p>
+  <a href="{% url 'profile_edit' %}">Editar perfil</a> |
+  <a href="{% url 'password_change' %}">Cambiar contraseña</a>
+</p>
+{% endblock %}
