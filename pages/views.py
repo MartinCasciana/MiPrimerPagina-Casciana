@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.db.models import Q
@@ -32,22 +33,32 @@ class PageDetail(DetailView):
 
 class PageCreate(LoginRequiredMixin, CreateView):
     model = Page
-    fields = ["title", "slug", "excerpt", "body", "image"]
+    fields = ["title", "subtitle", "content", "image"]
     template_name = "pages/page_form.html"
     success_url = reverse_lazy("page_list")
+
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.success(self.request, "Página creada correctamente.")
         return super().form_valid(form)
 
     
 
-class PageUpdate(LoginRequiredMixin, OwnerRequiredMixin, UpdateView):
+class PageUpdate(LoginRequiredMixin, UpdateView):
     model = Page
     fields = ["title", "subtitle", "content", "image"]
     template_name = "pages/page_form.html"
     success_url = reverse_lazy("page_list")
 
-class PageDelete(LoginRequiredMixin, OwnerRequiredMixin, DeleteView):
+    def form_valid(self, form):
+        messages.success(self.request, "Página actualizada correctamente.")
+        return super().form_valid(form)
+
+class PageDelete(LoginRequiredMixin, DeleteView):
     model = Page
     template_name = "pages/page_confirm_delete.html"
     success_url = reverse_lazy("page_list")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Página eliminada correctamente.")
+        return super().delete(request, *args, **kwargs)
