@@ -1,19 +1,25 @@
 {% extends 'app_kiosco/base.html' %}
 {% block title %}Inbox{% endblock %}
 {% block content %}
-<h2>Inbox</h2>
-<p><a href="{% url 'inbox_new' %}">Nuevo mensaje</a> | <a href="{% url 'inbox_sent' %}">Enviados</a></p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="m-0">Inbox</h2>
+  <a class="btn btn-primary" href="{% url 'inbox_new' %}">Nuevo mensaje</a>
+</div>
+
 {% if messages_list %}
-  <ul>
+  <div class="list-group">
     {% for m in messages_list %}
-      <li>
-        {% if not m.read %}<strong>[Nuevo]</strong>{% endif %}
-        <a href="{% url 'inbox_detail' m.pk %}">{{ m.subject }}</a>
-        — de {{ m.sender.username }} — {{ m.created|date:"d/m/Y H:i" }}
-      </li>
+      <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+         href="{% url 'inbox_detail' m.pk %}">
+        <div>
+          {% if not m.read %}<span class="badge text-bg-danger me-2">Nuevo</span>{% endif %}
+          <strong>{{ m.subject }}</strong> — de {{ m.sender.username }}
+          <div class="small text-muted">{{ m.created|date:"d/m/Y H:i" }}</div>
+        </div>
+      </a>
     {% endfor %}
-  </ul>
+  </div>
 {% else %}
-  <p>No tenés mensajes.</p>
+  <div class="alert alert-info">No tenés mensajes.</div>
 {% endif %}
 {% endblock %}

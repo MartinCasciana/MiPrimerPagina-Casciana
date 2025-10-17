@@ -1,10 +1,19 @@
 {% extends 'app_kiosco/base.html' %}
-{% block title %}Login{% endblock %}
+{% load widget_tweaks %}
+{% block title %}Iniciar sesión{% endblock %}
 {% block content %}
 <h2>Iniciar sesión</h2>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Entrar</button>
+<form method="post" class="mt-3" novalidate>
+  {% csrf_token %}
+  {% for field in form %}
+    <div class="mb-3">
+      <label class="form-label">{{ field.label }}</label>
+      {{ field|add_class:"form-control" }}
+      {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+    </div>
+  {% endfor %}
+  <button class="btn btn-primary">Entrar</button>
+  <a href="{% url 'signup' %}" class="btn btn-link">Registrarme</a>
 </form>
-<p>¿No tenés cuenta? <a href="{% url 'signup' %}">Registrate</a></p>
 {% endblock %}
+

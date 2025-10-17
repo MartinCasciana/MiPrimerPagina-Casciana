@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'pages',
     'accounts',
     'inbox',
+    "widget_tweaks",
+
 
 ]
 

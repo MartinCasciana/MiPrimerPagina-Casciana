@@ -1,20 +1,22 @@
 {% extends 'app_kiosco/base.html' %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
-<h2>{{ page.title }}</h2>
-{% if page.subtitle %}<p><em>{{ page.subtitle }}</em></p>{% endif %}
-<p><small>Publicado el {{ page.date_created|date:"d/m/Y H:i" }} por {{ page.author }}</small></p>
+<div class="row">
+  <div class="col-lg-9">
+    <h2>{{ page.title }}</h2>
+    {% if page.subtitle %}<p class="text-muted">{{ page.subtitle }}</p>{% endif %}
+    <small class="text-secondary d-block mb-3">
+      Publicado el {{ page.date_created|date:"d/m/Y H:i" }} por {{ page.author }}
+    </small>
+    {% if page.image %}
+      <img src="{{ page.image.url }}" alt="" class="img-fluid rounded mb-3">
+    {% endif %}
+    <div class="mb-4">{{ page.content|safe }}</div>
 
-{% if page.image %}
-  <p><img src="{{ page.image.url }}" alt="" style="max-width: 320px;"></p>
-{% endif %}
-
-<div>{{ page.content|safe }}</div>
-
-{% if user.is_authenticated %}
-  <p style="margin-top:1rem;">
-    <a href="{% url 'page_update' page.slug %}">Editar</a> |
-    <a href="{% url 'page_delete' page.slug %}">Borrar</a>
-  </p>
-{% endif %}
+    {% if user.is_authenticated %}
+      <a href="{% url 'page_update' page.slug %}" class="btn btn-warning">Editar</a>
+      <a href="{% url 'page_delete' page.slug %}" class="btn btn-outline-danger">Borrar</a>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

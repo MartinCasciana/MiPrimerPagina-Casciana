@@ -1,18 +1,24 @@
 {% extends 'app_kiosco/base.html' %}
 {% block title %}Enviados{% endblock %}
 {% block content %}
-<h2>Enviados</h2>
-<p><a href="{% url 'inbox_new' %}">Nuevo mensaje</a> | <a href="{% url 'inbox_home' %}">Inbox</a></p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="m-0">Enviados</h2>
+  <div>
+    <a class="btn btn-outline-secondary" href="{% url 'inbox_home' %}">Inbox</a>
+    <a class="btn btn-primary" href="{% url 'inbox_new' %}">Nuevo mensaje</a>
+  </div>
+</div>
+
 {% if messages_list %}
-  <ul>
+  <div class="list-group">
     {% for m in messages_list %}
-      <li>
-        <a href="{% url 'inbox_detail' m.pk %}">{{ m.subject }}</a>
-        — a {{ m.recipient.username }} — {{ m.created|date:"d/m/Y H:i" }}
-      </li>
+      <a class="list-group-item list-group-item-action" href="{% url 'inbox_detail' m.pk %}">
+        <strong>{{ m.subject }}</strong> — a {{ m.recipient.username }}
+        <div class="small text-muted">{{ m.created|date:"d/m/Y H:i" }}</div>
+      </a>
     {% endfor %}
-  </ul>
+  </div>
 {% else %}
-  <p>No enviaste mensajes aún.</p>
+  <div class="alert alert-info">No enviaste mensajes aún.</div>
 {% endif %}
 {% endblock %}

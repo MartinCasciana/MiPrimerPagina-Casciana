@@ -1,18 +1,18 @@
 {% extends 'app_kiosco/base.html' %}
 {% block title %}Mensaje{% endblock %}
 {% block content %}
-<h2>{{ msg.subject }}</h2>
-<p><b>De:</b> {{ msg.sender.username }} — <b>Para:</b> {{ msg.recipient.username }}</p>
-<p><small>{{ msg.created|date:"d/m/Y H:i" }}</small></p>
+<h2 class="mb-1">{{ msg.subject }}</h2>
+<p class="text-muted">
+  <b>De:</b> {{ msg.sender.username }} — <b>Para:</b> {{ msg.recipient.username }}
+  <br><small>{{ msg.created|date:"d/m/Y H:i" }}</small>
+</p>
 <hr>
 <p>{{ msg.body|linebreaks }}</p>
 <hr>
-<form method="post" action="{% url 'inbox_delete' msg.pk %}">
+<form method="post" action="{% url 'inbox_delete' msg.pk %}" class="d-inline">
   {% csrf_token %}
-  <button type="submit">Eliminar</button>
-  <a href="{% url 'inbox_home' %}">Volver</a>
+  <button class="btn btn-outline-danger">Eliminar</button>
 </form>
-<p style="margin-top:1rem;">
-  Responder: <a href="{% url 'inbox_new_to' msg.sender.username %}">{{ msg.sender.username }}</a>
-</p>
+<a class="btn btn-primary" href="{% url 'inbox_new_to' msg.sender.username %}">Responder</a>
+<a class="btn btn-outline-secondary" href="{% url 'inbox_home' %}">Volver</a>
 {% endblock %}

@@ -3,9 +3,9 @@
 {% block content %}
 <h2>¿Eliminar este mensaje?</h2>
 <p><strong>{{ msg.subject }}</strong></p>
-<form method="post">
+<form method="post" class="d-flex gap-2">
   {% csrf_token %}
-  <button type="submit">Sí, eliminar</button>
-  <a href="{% url 'inbox_home' %}">Cancelar</a>
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{% url 'inbox_home' %}" class="btn btn-outline-secondary">Cancelar</a>
 </form>
 {% endblock %}
